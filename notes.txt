@@ -1,0 +1,3 @@
+Tabla de admins (login)
+Codigo de empleado
+Password

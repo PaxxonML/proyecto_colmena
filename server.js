@@ -1,18 +1,19 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(bodyParser.json()); // support json encoded bodies
 
-app.use(express.static('public'));
-
 app.get('/', (req, res) => {
-  res.send('index.html');
+    const filePath = path.join(__dirname, 'index.html');
+  res.sendFile(filePath);
 });
 
 app.get('/registerUser', (req, res) => {
-    res.send('registerUser.html');
+    const filePath = path.join(__dirname, 'registerUser.html');
+    res.sendFile(filePath);
 });
 
 app.post('/registerUser', (req, res) => {
@@ -21,7 +22,8 @@ app.post('/registerUser', (req, res) => {
 });
 
 app.get('/loginAdmin', (req, res) => {
-    res.send('loginAdmin.html');
+    const filePath = path.join(__dirname, 'loginAdmin.html');
+    res.sendFile(filePath);
 });
 
 app.post('/loginAdmin', (req, res) => {
@@ -30,7 +32,8 @@ app.post('/loginAdmin', (req, res) => {
 });
 
 app.get('/showAlerts', (req, res) => {
-    res.send('showAlerts.html');
+    const filePath = path.join(__dirname, 'showAlerts.html');
+    res.sendFile(filePath);
 });
 
 const port = 3000; // You can change this to any available port
