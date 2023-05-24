@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {Link} from "react-router-dom";
 
-function FormComponent() {
+function DashboardComponent() {
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -36,14 +36,14 @@ function FormComponent() {
                 autoComplete="off"
             />
             <i className="typcn typcn-eye" id="eye"></i>
-                <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    placeholder="Password"
-                    autoComplete="off"
-                />
+            <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                placeholder="Password"
+                autoComplete="off"
+            />
             <Link to="/dashboard">
                 <button type="submit" className="btn1">Submit</button>
             </Link>
@@ -51,4 +51,4 @@ function FormComponent() {
     );
 }
 
-export default FormComponent;
+export default DashboardComponent;
