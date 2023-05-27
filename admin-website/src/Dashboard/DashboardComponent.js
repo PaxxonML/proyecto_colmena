@@ -1,103 +1,59 @@
-import React, { useState } from "react";
-import { Table } from "react-bootstrap";
-import { Line, Bar } from "react-chartjs-2";
+import React from 'react';
+import { Box } from "@mui/material";
+import Team from "./scenes/team";
+import { useState } from "react";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { ColorModeContext, useMode } from "./theme";
+import { Routes, Route } from "react-router-dom";
+import Topbar from "./scenes/global/Topbar";
+import Dashboard from "./scenes/dashboard";
+import Contacts from "./scenes/contacts";
+import Sidebar from "./scenes/global/Sidebar";
+import Invoices from "./scenes/invoices";
+import Form from "./scenes/form";
+import Calendar from "./scenes/calendar";
+import FAQ from "./scenes/faq";
+import Bar from "./scenes/bar";
+import Pie from "./scenes/Pie";
+import Line from "./scenes/line";
+import Geography from "./scenes/geography";
+import Main from "./scenes/main";
 
-class DashboardComponent extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: {
-                CPU: 0,
-                RAM: 0,
-                Disk: 0,
-            }
-        };
-    };
 
-    handleChange (event) {
-        this.setState({
-            ...data,
-            [event.target.name]: event.target.value,
-        });
-    };
+function DashboardComponent() {
+    const [theme, colorMode] = useMode();
+    const [isSidebar, setIsSidebar] = useState(true);
 
-    render() {
-        return (
-            <div>
-                <h1>Dashboard Component</h1>
-                <div>
-                    <Table striped bordered hover>
-                        <thead>
-                        <tr>
-                            <th>Metric</th>
-                            <th>Value</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>CPU</td>
-                            <td>{data.CPU}</td>
-                        </tr>
-                        <tr>
-                            <td>RAM</td>
-                            <td>{data.RAM}</td>
-                        </tr>
-                        <tr>
-                            <td>Disk</td>
-                            <td>{data.Disk}</td>
-                        </tr>
-                        </tbody>
-                    </Table>
+    return (
+        <ColorModeContext.Provider value={colorMode}>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <div className="app">
+                    <Topbar setIsSidebar={setIsSidebar} />
+                    <main className="content" style={{ display: "flex" }}>
+                        {isSidebar && <Sidebar isSidebar={isSidebar} />}
+                        <Box flexGrow={1}>
+                            <Routes>
+                                <Route path="/dashboard" element={<Dashboard />} />
+                                <Route path="/team" element={<Team />} />
+                                <Route path="/contacts" element={<Contacts />} />
+                                <Route path="/invoices" element={<Invoices />} />
+                                <Route path="/form" element={<Form />} />
+                                <Route path="/calendar" element={<Calendar />} />
+                                <Route path="/faq" element={<FAQ />} />
+                                <Route path="/bar" element={<Bar />} />
+                                <Route path="pie" element={<Pie />} />
+                                <Route path="/line" element={<Line />} />
+                                <Route path="/geography" element={<Geography />} />
+                            </Routes>
+                        </Box>
+                    </main>
                 </div>
-                <div>
-                    <Line
-                        data={[
-                            { x: [1, 2, 3, 4, 5], y: [10, 20, 30, 40, 50] },
-                        ]}
-                        options={{
-                            title: {
-                                text: "CPU Usage",
-                            },
-                        }}
-                    />
-                </div>
-                <div>
-                    <Bar
-                        data={[
-                            { x: ["A", "B", "C", "D", "E"], y: [10, 20, 30, 40, 50] },
-                        ]}
-                        options={{
-                            title: {
-                                display: true,
-                                text: "RAM Usage",
-                            },
-                        }}
-                    />
-                </div>
-                <div>
-                    <input
-                        type="number"
-                        name="cpu"
-                        value={data.CPU}
-                        onChange={handleChange}
-                    />
-                    <input
-                        type="number"
-                        name="ram"
-                        value={data.RAM}
-                        onChange={handleChange}
-                    />
-                    <input
-                        type="number"
-                        name="disk"
-                        value={data.Disk}
-                        onChange={handleChange}
-                    />
-                </div>
-            </div>
-        );
-    }
+            </ThemeProvider>
+        </ColorModeContext.Provider>
+    );
 }
+
 
 export default DashboardComponent;
